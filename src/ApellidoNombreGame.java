@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Clase encargada de manejar la lógica principal del juego "Guess the movie".
@@ -76,6 +77,47 @@ public class ApellidoNombreGame {
         }
 
         return progreso.toString();
-        
+
+    }
+
+    /**
+     * Mostramos un menú con opciones para leer la elección del usuario.
+     *
+     * @return Opción elegida por el usuario.
+     */
+
+    public int mostrarMenu() {
+        System.out.println("\n--- Menú ---");
+        System.out.println("1. 🎥 Adivinar una letra");
+        System.out.println("2. 🏆 Adivinar el título completo");
+        System.out.println("3. ❌ Salir");
+        System.out.println("Elige una opción: ");
+
+        Scanner scanner = new Scanner(System.in);
+        String opcionStr = scanner.nextLine(); // Capturamos como String
+
+        // Verificamos si la entrada es un número válido
+        int opcion = -1; // Valor defecto en caso de que la opción no sea válida
+        boolean valido = false;
+
+        while (!valido) {
+            try {
+                opcion = Integer.parseInt(opcionStr); // Convertimos a int
+                if (opcion >= 1 && opcion <= 3) {
+                    valido = true; // La opción es válida
+                } else {
+                    System.out.println("Opción no válida. Por favor, elige una opción del menú");
+                    System.out.println("Elige una opción: ");
+                    opcionStr = scanner.nextLine(); // Volvemos a pedir la opción
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Opción no válida. Por favor, elige una opción del menú.");
+                System.out.println("Elige una opción: ");
+                opcionStr = scanner.nextLine(); // Volvemos a pedir la opción
+            }
+        }
+        return opcion; // Aseguramos de retornar la opción valida
     }
 }
+
+

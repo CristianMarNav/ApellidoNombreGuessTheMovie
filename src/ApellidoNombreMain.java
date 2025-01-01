@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Clase principal que inicializa y ejecuta el juego Guess the Movie.
@@ -22,15 +23,49 @@ public class ApellidoNombreMain {
         String peliculaSeleccionada = game.seleccionarPeliculaAleatoria();
         System.out.println("Película seleccionada: " + peliculaSeleccionada);
 
-        // Simulamos el progreso del juego
+        // Lista para simular letras adivinadas
         List<Character> letrasAdivinadas = new ArrayList<>();
-        letrasAdivinadas.add('T'); // Simulamos que el jugador adivinó la letra 'T'
-        letrasAdivinadas.add('E'); // Simulamos que el jugador adivinó la letra 'E'
 
-        System.out.println("Progreso actual: " + game.mostrarProgreso(letrasAdivinadas));
+        //Bucle para mostrar el menú hasta que el usuario elija salir
+        int opcion;
+        do {
+            opcion = game.mostrarMenu();
+            switch (opcion) {
+                case 1: // Adivinar una letra
 
-        // Agregamos otra letra simulada
-        letrasAdivinadas.add('R'); // Simulamos que el jugador adivinó la letra 'R'
-        System.out.println("Progreso actual: " + game.mostrarProgreso(letrasAdivinadas));
+                    System.out.println("Introduce una letra: ");
+                    Scanner scannerLetra = new Scanner(System.in); // Nuevo scanner para capturar la letra
+                    char letra = scannerLetra.nextLine().charAt(0); // Capturamos la primera letra
+                    letrasAdivinadas.add(letra); // Simulamos que la letra se adivina
+
+                    System.out.println("Progreso actual: " + game.mostrarProgreso(letrasAdivinadas));
+                    break;
+
+                case 2: // Adivinar el título completo
+
+                    System.out.println("Introduce el título completo: ");
+                    Scanner scannerTitulo = new Scanner(System.in); // Usamos otro scanner para el título
+                    String titulo = scannerTitulo.nextLine(); // Captura del título completo
+
+                    if (titulo.equalsIgnoreCase(peliculaSeleccionada)) {
+                        System.out.println("¡Correcto! Has adivinado la película.");
+                        opcion = 3; // Termina el juego
+                    } else {
+                        System.out.println("¡Incorrecto! Sigue intentando.");
+                    }
+                    break;
+
+                case 3: // Salir
+
+                    System.out.println("Gracias por jugar. ¡Hasta pronto!");
+                    break;
+
+                default:
+
+                    System.out.println("Opción no válida. Por favor, elige una opción del menú.");
+
+            }
+        } while (opcion != 3);
+
     }
- }
+}
