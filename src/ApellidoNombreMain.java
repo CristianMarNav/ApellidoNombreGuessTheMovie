@@ -14,5 +14,9 @@ public class ApellidoNombreMain {
 
         // Mostramos las peliculas cargadas para probar
         System.out.println("Peliculas cargadas: " + game.getPeliculas());
+
+        // Seleccionamos una pelicula aleatoria y la mostramos
+        String peliculaSeleccionada = game.seleccionarPeliculaAleatoria();
+        System.out.println("Película seleccionada: " + peliculaSeleccionada);
     }
  }

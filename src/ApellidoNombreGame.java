@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Clase encargada de manejar la lógica principal del juego "Guess the movie".
@@ -41,5 +42,16 @@ public class ApellidoNombreGame {
      */
     public List<String> getPeliculas() {
         return peliculas;
+    }
+
+    /**
+     * Selecciona una pelicula aleatoria de la lista de peliculas.
+     *
+     * @return Película seleccionada aleatoriamente.
+     */
+    public String seleccionarPeliculaAleatoria() {
+        Random random = new Random();
+        int indice = random.nextInt(peliculas.size()); // Selecciona un índice aleatorio
+        return peliculas.get(indice); // Devuelve la película en ese índice
     }
 }
