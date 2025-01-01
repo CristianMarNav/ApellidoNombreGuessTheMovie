@@ -16,12 +16,8 @@ public class ApellidoNombreMain {
         // Creamos una instancia del juego
         ApellidoNombreGame game = new ApellidoNombreGame();
 
-        // Mostramos las peliculas cargadas para probar
-        System.out.println("Peliculas cargadas: " + game.getPeliculas());
-
         // Seleccionamos una pelicula aleatoria y la mostramos
         String peliculaSeleccionada = game.seleccionarPeliculaAleatoria();
-        System.out.println("Película seleccionada: " + peliculaSeleccionada);
 
         // Lista para simular letras adivinadas
         List<Character> letrasAdivinadas = new ArrayList<>();

@@ -1,7 +1,10 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.io.BufferedReader; // Importa la clase "BufferedReader", se usa para leer datos de un archivo de texto línea por línea.
+import java.io.FileReader; // Importa la clase "FileReader", permite abrir y leer archivos de texto.
+import java.io.IOException; // Importa la clase IOException, maneja errores durante la lectura de archivos.
+import java.util.ArrayList; // Importa la clase "ArrayList", implementación de lista dinámica.
+import java.util.List; // Importa la interfaz "List", define la estructura de la lista, utilizada para almacenar las películas.
+import java.util.Random; // Importa la clase "Random", genera números aleatorios, usada para seleccionar una película aleatoria.
+import java.util.Scanner; // Importa la clase "Scanner", permite leer entradas del usuario desde la consola.
 
 /**
  * Clase encargada de manejar la lógica principal del juego "Guess the movie".
@@ -17,24 +20,22 @@ public class ApellidoNombreGame {
     public ApellidoNombreGame() {
         // Inicialización de variables y lógica del juego.
         peliculas = new ArrayList<>(); // Inicializamos la lista
-        cargarPeliculas(); // Llamamos al método para cargar las películas
-        peliculaSeleccionada = ""; // Inicializamos con una cadena vacía.
+        cargarPeliculas();             // Llamamos al método para cargar las películas
+        peliculaSeleccionada = "";     // Inicializamos con una cadena vacía.
     }
 
     /**
-     * Carga la lista de peliculas disponibles para el juego.
+     * Carga la lista de peliculas disponibles para el juego desde el archivo "peliculas.txt"
      */
     private void cargarPeliculas() {
-        peliculas.add("The Terminator");
-        peliculas.add("Back to the Future");
-        peliculas.add("E.T");
-        peliculas.add("Ghostbusters");
-        peliculas.add("The Goonies");
-        peliculas.add("Top Gun");
-        peliculas.add("Blade Runner");
-        peliculas.add("The Breakfast Club");
-        peliculas.add("Die Hard");
-        peliculas.add("Indiana Jones and the Last Crusade");
+        try (BufferedReader br = new BufferedReader(new FileReader("src/peliculas.txt"))) {
+            String linea;
+            while ((linea = br.readLine()) !=null) {
+                peliculas.add(linea); // Añadimos cada pelicula a la lista
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo de películas");
+        }
     }
 
     /**
@@ -55,7 +56,7 @@ public class ApellidoNombreGame {
         Random random = new Random();
         int indice = random.nextInt(peliculas.size()); // Selecciona un índice aleatorio
         peliculaSeleccionada = peliculas.get(indice); // Guarda la película seleccionada
-        return peliculaSeleccionada; // Devuelve la película en ese índice
+        return peliculaSeleccionada.replaceAll(".","*"); // Oculta la película reemplazando las letras por asteriscos
     }
 
     /**
@@ -88,8 +89,8 @@ public class ApellidoNombreGame {
 
     public int mostrarMenu() {
         System.out.println("\n--- Menú ---");
-        System.out.println("1. 🎥 Adivinar una letra");
-        System.out.println("2. 🏆 Adivinar el título completo");
+        System.out.println("1. 🧠 Adivinar una letra");
+        System.out.println("2. 🎥 Adivinar el título completo");
         System.out.println("3. ❌ Salir");
         System.out.println("Elige una opción: ");
 
