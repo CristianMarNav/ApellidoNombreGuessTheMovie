@@ -6,6 +6,7 @@ import java.util.Scanner;
  * Clase principal que inicializa y ejecuta el juego "Guess the Movie".
  */
 public class ApellidoNombreMain {
+
     /**
      * Método principal donde comienza la ejecución del programa.
      *
@@ -27,6 +28,10 @@ public class ApellidoNombreMain {
         // Lista para simular letras adivinadas
         List<Character> letrasAdivinadas = new ArrayList<>();
 
+        // Inicialización de intentos y puntuación
+        int intentos = 10;
+        int puntuacion = 0;
+
         //Bucle para mostrar el menú hasta que el usuario elija salir
         int opcion = 0;
         while (opcion != 3) { // Salir cuando se elija la opción 3
@@ -37,7 +42,21 @@ public class ApellidoNombreMain {
 
                     char letra = pedirLetra(); // Capturamos la primera letra
                     letrasAdivinadas.add(letra); // Añadir la letra adivinada
+
+                    // Verificamos si la letra está en el título
+                    if (game.adivinarLetra(letra)) {
+                        System.out.println("¡Correcto!");
+                        puntuacion += 10; // Sumar 10 puntos por letra correcta
+                    } else {
+                        System.out.println("¡Incorrecto!");
+                        intentos--; // Restar 1 intento por letra incorrecta
+                        puntuacion -= 10; // Restar 10 puntos por letra incorrecta
+                    }
+
+                    //Mostrar progreso
                     System.out.println("Progreso actual: " + game.mostrarProgreso(letrasAdivinadas));
+                    System.out.println("Puntuación actual: " + puntuacion);
+                    System.out.println("Intentos restantes " + intentos);
                     break;
 
                 case 2: // Opción - "Adivinar el título completo"
@@ -46,8 +65,10 @@ public class ApellidoNombreMain {
 
                     if (game.adivinarTitulo(titulo)) {
                         System.out.println("¡Correcto! Has adivinado la película.");
+                        puntuacion += 20; // Sumar 20 puntos por adivinar el título completo
                     } else {
                         System.out.println("¡Incorrecto! Sigue intentando.");
+                        intentos--; // Restar 20 puntos por no adivinar el título completo
                     }
                     break;
 
@@ -59,6 +80,13 @@ public class ApellidoNombreMain {
                 default:
 
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
+            }
+
+            // Finalizar el juego si se acaban los intentos
+            if (intentos == 0) {
+                System.out.println("¡Te has quedado sin intentos! El juego ha terminado.");
+                System.out.println("El título era: " + game.seleccionarPeliculaAleatoria());
+                System.out.println("Tu puntuación final es: " + puntuacion);
             }
         }
     }
@@ -127,4 +155,3 @@ public class ApellidoNombreMain {
         return scanner.nextLine();
     }
 }
-

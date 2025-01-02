@@ -28,12 +28,14 @@ public class ApellidoNombreGame {
 
     /**
      * Carga la lista de peliculas disponibles para el juego desde el archivo "peliculas.txt"
+     *
+     * Lee desde el archivo y las agrega a la lista de películas
      */
     private void cargarPeliculas() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/peliculas.txt"))) {
             String linea;
             while ((linea = br.readLine()) !=null) {
-                peliculas.add(linea.trim()); // Añadimos cada pelicula a la lista
+                peliculas.add(linea.trim()); // Añade cada pelicula a la lista
             }
         } catch (IOException e) {
             System.out.println("Error al leer el archivo de películas");
@@ -70,7 +72,31 @@ public class ApellidoNombreGame {
                 progreso.append('*'); // Reemplaza las letras no adivinadas con '*'
             }
         }
-        return progreso.toString(); // Retorna el progreso de la película
+        return progreso.toString(); // Retorna el progreso actual como cadena
+    }
+
+    /**
+     * Permite al jugador adivinar una letra en la película.
+     *
+     * @param letra "La Letra que el jugador intenta adivinar".
+     * @return true si la letra está en la película, false si no está.
+     */
+    public boolean adivinarLetra(char letra) {
+        if (peliculaSeleccionada.toLowerCase().contains(String.valueOf(Character.toLowerCase(letra)))) {
+            puntuacion += 10; // Aumenta los puntos si la letra es correcta
+            return true; // Letra correcta
+        } else {
+            intentos --; // Resta un intento si la letra es incorrecta
+            return false; // Letra incorrecta
+        }
+    }
+
+    /**
+     * Muestra la puntuacion actual y los intentos restantes del jugador.
+     */
+    public void mostrarPuntuacion() {
+        System.out.println("Puntuación actual: " + puntuacion);
+        System.out.println("Intentos restantes " + intentos);
     }
 
     /**
@@ -83,5 +109,3 @@ public class ApellidoNombreGame {
         return peliculaSeleccionada.equalsIgnoreCase(titulo); // Compara el título ignorando mayúsculas/minúsculas
     }
 }
-
-
