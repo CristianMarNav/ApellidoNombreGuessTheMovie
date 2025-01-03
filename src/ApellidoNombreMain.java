@@ -18,6 +18,11 @@ public class ApellidoNombreMain {
         System.out.println("Solo tienes 10 intentos. Cada vez que te equivoques, perderás un intento.");
         System.out.println("¡Buena suerte!\n");
 
+        // Inicialización de intentos y puntuación
+
+        int intentos = 10;  // Inicializamos los intentos en 10
+        int puntuacion = 0; // Inicializamos la puntuación en 0
+
         // Creamos una instancia del juego
         ApellidoNombreGame game = new ApellidoNombreGame();
         game.seleccionarPeliculaAleatoria(); // Seleccionamos la pelicula aleatoria
@@ -28,23 +33,18 @@ public class ApellidoNombreMain {
         // Lista para simular letras adivinadas
         List<Character> letrasAdivinadas = new ArrayList<>();
 
-        // Inicialización de intentos y puntuación
-        int intentos = 10;
-        int puntuacion = 0;
-
         //Bucle para mostrar el menú hasta que el usuario elija salir
         int opcion = 0;
-        while (opcion != 3) { // Salir cuando se elija la opción 3
+        while (opcion != 3) {       // Salir cuando se elija la opción 3
             opcion = mostrarMenu(); // Mostrar el menú
 
             switch (opcion) {
                 case 1: // Opción - "Adivinar una letra"
 
-                    char letra = pedirLetra(); // Capturamos la primera letra
-                    letrasAdivinadas.add(letra); // Añadir la letra adivinada
+                    char letra = pedirLetra();   // Capturamos la primera letra
 
                     // Verificamos si la letra está en el título
-                    if (game.adivinarLetra(letra)) {
+                    if (game.adivinarLetra(letra, letrasAdivinadas)) {
                         System.out.println("¡Correcto!");
                         puntuacion += 10; // Sumar 10 puntos por letra correcta
                     } else {
@@ -68,7 +68,7 @@ public class ApellidoNombreMain {
                         puntuacion += 20; // Sumar 20 puntos por adivinar el título completo
                     } else {
                         System.out.println("¡Incorrecto! Sigue intentando.");
-                        intentos--; // Restar 20 puntos por no adivinar el título completo
+                        intentos--;       // Restar 20 puntos por no adivinar el título completo
                     }
                     break;
 
@@ -80,13 +80,7 @@ public class ApellidoNombreMain {
                 default:
 
                     System.out.println("Opción no válida. Por favor, elige una opción del menú.");
-            }
 
-            // Finalizar el juego si se acaban los intentos
-            if (intentos == 0) {
-                System.out.println("¡Te has quedado sin intentos! El juego ha terminado.");
-                System.out.println("El título era: " + game.seleccionarPeliculaAleatoria());
-                System.out.println("Tu puntuación final es: " + puntuacion);
             }
         }
     }
@@ -112,9 +106,9 @@ public class ApellidoNombreMain {
         while (!valido) {
             try {
                 String opcionStr = scanner.nextLine(); // Leemos la opción
-                opcion = Integer.parseInt(opcionStr); // Convertimos a un número entero
+                opcion = Integer.parseInt(opcionStr);  // Convertimos a un número entero
                 if (opcion >= 1 && opcion <= 3) {
-                    valido = true; // La opción es válida
+                    valido = true;                     // La opción es válida
                 } else {
                     System.out.println("Opción no válida. Por favor, elige una opción del menú");
                 }
